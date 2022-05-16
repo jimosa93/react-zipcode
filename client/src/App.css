@@ -1,0 +1,54 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;  
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);  
+  padding-top: 50px;
+}
+.App .left {
+  min-width: 500px;
+  padding-left: 10%;
+  max-width: 100%;
+}
+.App .right {
+  min-width: 400px;
+  color: white;
+  max-width: 100%;
+}
+.App p {
+  color: white;
+}
+.App .row {
+  margin-top: 10px;
+}
+.App input.input-text {
+  height: 30px;
+}
+.App button {
+  height: 36px;
+}
+.App .country-selector {
+  max-width: 300px;
+  margin: auto;
+}
+.zipcode-container{
+  font-size: 16px;
+  border: 1px solid white;
+  color: white;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+.zipcode-container p{
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.error-message {
+  background-color: red;
+  margin-top: 10px;
+  padding: 5px;
+}
