@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import { gql, useLazyQuery } from '@apollo/client';
-import CountrySelector from './components/CountrySelector'
+import CountrySelector from './components/CountrySelector';
+import ZipCodeCmp from './components/ZipCodeCmp';
 
 const GET_ZIPCODE_INFO = gql`
   query($zipcode: String!, $countryID: String!) {
@@ -20,29 +21,26 @@ const GET_ZIPCODE_INFO = gql`
   }
 `;
 
-const ZipCodeCmp = ({ zipcodeData } : any) => <div className='zipcode-container'>
-	<p><b>Zipcode:</b> {zipcodeData?.zipcode}</p>
-	<p><b>Country:</b> {zipcodeData?.country}</p>
-	<p><b>Country abbreviation:</b> {zipcodeData?.countryAbbreviation}</p>
-	<div>
-		{zipcodeData?.places.map((place: any, index: number) => (
-			<div key={index}>
-				<p><b>Place name:</b> {place?.placeName}</p>
-				<p><b>State:</b> {place?.state}</p>
-				<p><b>State abbreviation:</b> {place?.stateAbbreviation}</p>
-				<p><b>Longitude:</b> {place.longitude}</p>
-				<p><b>Latitude:</b> {place?.latitude}</p>
-			</div>
-		))}
-	</div>
-</div>;
+interface Place {     
+    placeName: string;
+    longitude: string;
+    state: string;
+    stateAbbreviation: string;
+    latitude: string;
+}
+interface ZipCodeItem {
+	zipcode: string;
+	country: string;
+	countryAbbrevation: string;
+	places: Place;
+}
 
 const App: React.FC = () => {
 	const [zipcode, setZipcode] = useState('');
 	const [countryID, setCountryID] = useState('US');
-	const [zipcodeData, setZipcodeData] = useState(null);
+	const [zipcodeData, setZipcodeData] = useState<ZipCodeItem | null>(null);
 	const [error, setError] = useState(false);
-	const [searchedItems, setSearchedItems] = useState<any>([]);
+	const [searchedItems, setSearchedItems] = useState<ZipCodeItem[] | []>([]);
 	const [getZipcode] = useLazyQuery(GET_ZIPCODE_INFO, {
 		fetchPolicy: 'no-cache',
 		onCompleted: data => {
@@ -90,7 +88,7 @@ const App: React.FC = () => {
 			<div className='right'>
 				<p>History:</p>
 				<div>
-					{searchedItems.slice(-5).map((item: any, index: any) => (
+					{searchedItems.slice(-5).map((item: ZipCodeItem, index: number) => (
 						<div key={index}>
 							{item?.zipcode} - {item?.places[0]?.placeName}
 						</div>
