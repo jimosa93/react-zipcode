@@ -21,7 +21,7 @@ export class Place {
 @ObjectType()
 export class Zipcode {
     @Field()
-    zipcode: number;
+    zipcode: string;
     
     @Field()
     country: string;

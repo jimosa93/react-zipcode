@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Int } from 'type-graphql';
+import { Resolver, Query, Arg } from 'type-graphql';
 import { Zipcode, Place } from '../schemas/zipcode.schema'
 import axios from 'axios';
 import { ZIPCODE_SERVICE_URL } from '../../consts';
@@ -7,14 +7,16 @@ import { ZIPCODE_SERVICE_URL } from '../../consts';
 export class ZipcodeResolver {
 	@Query(() => Zipcode)
 	async zipcodeInfo(
-		@Arg("zipcode", () => Int) zipcode: number,
+		@Arg("zipcode", () => String) zipcode: string,
+		@Arg("countryID", () => String) countryID: string,
 	) {
 		try {
-			const request = await axios.get(`${ZIPCODE_SERVICE_URL}${zipcode}`);
+			const request = await axios.get(`${ZIPCODE_SERVICE_URL}${countryID}/${zipcode}`);
 			const { data } = await request;
 			return {
 				zipcode: data['post code'],
 				country: data.country,
+				countryAbbreviation: data['country abbreviation'],
 				places: data.places.map((place: any): Place => (
 					{
 						placeName: place['place name'],

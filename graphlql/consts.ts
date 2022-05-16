@@ -1,0 +1,1 @@
+export const ZIPCODE_SERVICE_URL = 'https://api.zippopotam.us/';

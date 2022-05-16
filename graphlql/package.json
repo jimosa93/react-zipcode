@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "nodemon src/index.ts --exec ts-node"
   },
   "author": "Jorge Morales",
@@ -17,7 +17,10 @@
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "jest": "^28.1.0",
     "nodemon": "^2.0.16",
+    "ts-jest": "^28.0.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   }
